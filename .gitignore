@@ -1,0 +1,32 @@
+# Dependencias
+node_modules/
+
+# Archivos de entorno
+.env
+
+# Archivos de registro y base de datos
+*.log
+*.sqlite
+
+# Archivos de sistema operativo
+.DS_Store
+Thumbs.db
+
+# Archivos de configuración de editores y entornos de desarrollo
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Archivos de compilación y distribución
+dist/
+build/
+*.zip
+*.tar.gz
+
+# Archivos de pruebas y cobertura
+coverage/
+*.lcov
+
+# Archivos de documentación generada
+docs/
