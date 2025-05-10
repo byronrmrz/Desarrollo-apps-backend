@@ -21,7 +21,7 @@ npm install
 ````
 
 Configuración
-Asegúrate de tener configurado el entorno de desarrollo. Este proyecto utiliza un middleware para verificar la API key en las solicitudes. La API key esperada es 13005169@br.gal.
+Asegúrate de tener configurado el entorno de desarrollo. Este proyecto utiliza un middleware para verificar la API key en las solicitudes. La API key esperada es 13005169@br.gal
 
 Ejecución del Proyecto
 Para ejecutar el proyecto, usa el siguiente comando:
