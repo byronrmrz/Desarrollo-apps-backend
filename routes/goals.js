@@ -5,7 +5,7 @@ var router = express.Router();
 let goals = [];
 
 router.get('/getGoals', function(req, res, next){
-    res.json(goals);
+    res.status(200).json(goals);
 })
 
 router.post('/addGoals', function(req, res, next){
@@ -14,18 +14,24 @@ router.post('/addGoals', function(req, res, next){
         req.body.id=timestamp;
         goals.push(req.body);
     }
-    res.json(goals);
+    res.status(200).json(goals);
 
 })
 
 router.delete('/removeGoal/:id', function(req, res, next){
    if( req.params && req.params.id ){
     let id = req.params.id;
-    goals = goals.filter(task =>
-        task.id != id);
-        res.json(goals);
+    const goal = goals.find(goal => goal.id === id);
+    if(!goal){
+        res.status(400).json({message: 'Goal not found'});
+        } else {
+            goals = goals.filter(task =>
+                task.id != id);
+                res.json(goals);
+        }
+
    }else{
-    res.json([{}])
+    res.status(200).json([{}])
    }
 
 })

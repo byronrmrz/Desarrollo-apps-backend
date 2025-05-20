@@ -5,7 +5,7 @@ var router = express.Router();
 let tasks = [];
 
 router.get('/getTasks', function(req, res, next){
-    res.json(tasks);
+    res.status(200).json(tasks);
 })
 
 router.post('/addTask', function(req, res, next){
@@ -14,18 +14,24 @@ router.post('/addTask', function(req, res, next){
         req.body.id=timestamp;
         tasks.push(req.body);
     }
-    res.json(tasks);
+    res.status(200).json(tasks);
 
 })
 
 router.delete('/removeTask/:id', function(req, res, next){
    if( req.params && req.params.id ){
     let id = req.params.id;
-    tasks = tasks.filter(task =>
-        task.id != id);
-        res.json(tasks);
-   }else{
-    res.json([{}])
+    const task = tasks.find(task => task.id === id);
+    if(!task){
+        res.status(400).json({message: 'Task not found'});
+    }else{
+        tasks = tasks.filter(task =>
+            task.id != id);
+            res.json(tasks);
+       }
+    }
+    else{
+        res.status(200).json([{}])
    }
 
 })
