@@ -16,17 +16,17 @@ router.get('/getGoals', function(req, res, next){
 })
 
 router.post('/addGoals', function(req, res, next){
-    if(req.body && req.body.name && req.body.description && req.body.dueDate){
-        const goal = new goalsInit(req.body);
-        goal.save().then(()=>
-            res.status(200).json({ok:true})
-        ).catch((err)=>res.status(500).json(err));        
-    }else{
-        res.status(400).json({error: 'Missing required fields'
-        })
-    }
+  const { name, description, dueDate } = req.body;
 
-})
+  if (name && description && dueDate) {
+    const goal = new goalsInit({ name, description, dueDate });
+    goal.save()
+      .then((savedGoal) => res.status(200).json(savedGoal))
+      .catch((err) => res.status(500).json(err));
+  } else {
+    res.status(400).json({ error: 'Faltan campos requeridos: name, description, dueDate' });
+  }
+});
 
 router.delete('/removeGoal/:id', function(req, res, next){
    if( req.params && req.params.id ){

@@ -10,8 +10,12 @@ var usersTasks = require('./routes/tasks');
 var usersGoals= require('./routes/goals');
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://127.0.0.1:27017/desarrolloweb');
+const cors = require('cors');
+
+
 
 var app = express();
+app.use(cors());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -37,18 +41,14 @@ app.use('/tasks', usersTasks);
 app.use('/goals', usersGoals);
 
 
-// catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
 
-// error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
   res.status(err.status || 500);
   res.render('error');
 });

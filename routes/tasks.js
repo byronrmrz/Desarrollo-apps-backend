@@ -14,17 +14,18 @@ router.get('/getTasks', function(req, res, next){
         ).catch((err)=>res.status(500).json(err))
         })
 
-router.post('/addTask', function(req, res, next){
-    if(req.body && req.body.name && req.body.description && req.body.dueDate){
-        const task = new taskInit(req.body);
-        task.save().then(()=>
-            res.status(200).json({ok:true})
-         ).catch((err)=>res.status(500).json(err));
-    }else{
-        res.status(400).json({tasks});
-    }
+router.post('/addTask', function(req, res, next) {
+  const { name, description, dueDate } = req.body;
 
-})
+  if (name && description && dueDate) {
+    const task = new taskInit({ name, description, dueDate });
+    task.save()
+      .then((savedTask) => res.status(200).json(savedTask))
+      .catch((err) => res.status(500).json(err));
+  } else {
+    res.status(400).json({ error: 'Faltan campos requeridos: name, description, dueDate' });
+  }
+});
 
 router.delete('/removeTask/:id', function(req, res, next){
    if( req.params && req.params.id ){
@@ -34,7 +35,7 @@ router.delete('/removeTask/:id', function(req, res, next){
     }).catch(err=>res.status(500).json(err))
     }
     else{
-        res.status(200).json([{}])
+        res.status(400).json(tasks)
    }
 
 })
