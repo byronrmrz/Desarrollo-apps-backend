@@ -9,9 +9,12 @@ var usersRouter = require('./routes/users');
 var usersTasks = require('./routes/tasks');
 var usersGoals= require('./routes/goals');
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://127.0.0.1:27017/desarrolloweb');
 const cors = require('cors');
-
+require('dotenv').config();
+const mongoUri = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/desarrolloweb';
+mongoose.connect(mongoUri)
+  .then(() => console.log("✅ Conectado a MongoDB"))
+  .catch((err) => console.error("🔴 Error al conectar a MongoDB:", err));
 
 
 var app = express();
